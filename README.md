@@ -1,63 +1,50 @@
-# JS Analyzer 🔍
+# Pentesta Project – Information Gathering Stage 📊
 
-![Go](https://img.shields.io/badge/Language-Go-00ADD8?style=flat&logo=go)
+This repository showcases my contribution to the **Pentesta Project**, a Web Vulnerability Scanner designed to identify potential security risks in web applications. My focus was on the **Information Gathering** stage, which is crucial for collecting technical and security-related information before active vulnerability scanning.
+
+The Information Gathering stage includes **two main tasks**:
+
+1. **JavaScript Analyzer**
+2. **Technologies & Infrastructure Fingerprinting**
+
+---
+
+## 1️⃣ JS Analyzer 🔍
+
+![Go](https://img.shields.io/badge/Language-Go-00ADD8?style=flat\&logo=go)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/Petersudo01/JS-analyzer?style=flat)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Petersudo01/JS-analyzer?style=flat)
 
-JS Analyzer is a **powerful static analysis tool for JavaScript files** built in **Go**. It helps developers, security engineers, and auditors detect:
+**JS Analyzer** is a **static analysis tool for JavaScript files** built in Go. It helps detect:
 
-- Dangerous functions like `eval`, `Function`, `exec`, `setTimeout`, `setInterval`
-- Sensitive data exposure like `api_key`, `token`, `password`, `secret`, `PRIVATE_KEY`
-- Frameworks used and their versions (React, Angular, Vue, Next.js, Express)
+* Dangerous functions like `eval`, `Function`, `exec`, `setTimeout`, `setInterval`
+* Sensitive data such as `api_key`, `token`, `password`, `secret`, `PRIVATE_KEY`
+* Frontend frameworks used and their versions (React, Angular, Vue, Next.js, Express)
 
----
+### Features
 
-## 🚀 Features
+* Concurrent pipeline using Go channels
+* Color-coded CLI output
+* Detects dangerous functions and secrets
+* Detects frameworks and versions via regex
+* Saves structured JSON reports
+* Modular architecture (Stage1 → Stage5)
 
-- **Concurrent pipeline** using Go channels for high-speed analysis
-- **Color-coded CLI output** for easy reading
-- Detects **dangerous functions** and **sensitive data**
-- Detects **frameworks and versions** via regex
-- Saves **structured JSON reports** for automation
-- Modular architecture (Stage1 → Stage5) for maintainability and extensibility
-
----
-
-## 📁 Project Structure
+### Project Structure
 
 ```text
 JS-analyzer/
-├─ Stages/       # Go source code for each stage
-├─ Tests/        # JavaScript files for testing
-├─ Report/       # Saved JSON reports
+├─ Stages/       # Source code for each stage
+├─ Tests/        # JavaScript test files
+├─ Report/       # JSON reports
 ├─ go.mod
 ├─ main.go       # Entry point
-├─ LICENSE       # MIT License
+├─ LICENSE
 ├─ README.md
-````
-
----
-
-## ⚙️ Installation
-
-### Prerequisites
-
-* [Go 1.23+](https://golang.org/dl/)
-* Git
-
-Clone the repository:
-
-```bash
-git clone git@github.com:Petersudo01/JS-analyzer.git
-cd JS-analyzer
 ```
 
----
-
-## 💻 Usage
-
-Run the analyzer on a JavaScript file:
+### Usage
 
 ```bash
 go run . <filename.js>
@@ -83,77 +70,95 @@ Expected output:
 🚀 Analysis finished successfully!
 ```
 
-* JSON reports are saved automatically in `Report/`.
-
----
-
-## 🛠 Stages Explained
-
-1. **Stage1: Scanner** – Reads the filename and sends it to the parser.
-2. **Stage2: Parser** – Reads the file contents and sends code to the analyzer.
-3. **Stage3: Analyzer** – Detects dangerous functions and secrets.
-4. **Stage4: Framework Detector** – Detects frameworks and their versions.
-5. **Stage5: Reporter** – Prints results to the console and saves a JSON report.
-
----
-
-## 📄 JSON Report Structure
+### JSON Report Example
 
 ```json
 {
   "file": "example.js",
-  "dangerous_functions": [
-    {
-      "type": "Dangerous Function",
-      "detail": "eval",
-      "line": 10,
-      "severity": "high"
-    }
-  ],
-  "secrets": [
-    {
-      "type": "Sensitive Data",
-      "detail": "api_key",
-      "line": 4,
-      "severity": "medium"
-    }
-  ],
-  "frameworks": [
-    {
-      "name": "React",
-      "version": "17.0.2"
-    }
-  ]
+  "dangerous_functions": [{"type": "Dangerous Function", "detail": "eval", "line": 10, "severity": "high"}],
+  "secrets": [{"type": "Sensitive Data", "detail": "api_key", "line": 4, "severity": "medium"}],
+  "frameworks": [{"name": "React", "version": "17.0.2"}]
 }
 ```
 
 ---
 
-## 🧪 Test Files
+## 2️⃣ Technologies & Infrastructure Fingerprinting 🖥️
 
-* `Tests/test.js` – Simple test with a few dangerous functions
-* `Tests/full_test.js` – Complex test covering secrets, dangerous functions, and frameworks
-* `Tests/mega_challenge.js` – Real-world challenging JS file for full analysis
+![Go](https://img.shields.io/badge/Language-Go-00ADD8?style=flat\&logo=go)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/Petersudo01/Pentesta?style=flat)
+![GitHub last commit](https://img.shields.io/github/last-commit/Petersudo01/Pentesta?style=flat)
+
+This module detects **server technologies, backend frameworks, frontend libraries, databases, open ports, TLS info, CDNs, secrets, and endpoints**. It merges information from the JS Analyzer for a full picture.
+
+### Features
+
+* Detects frontend, backend, server, and database technologies
+* Computes Favicon MD5 fingerprints
+* Scans TLS certificates and protocols
+* Detects secrets in HTML/JS
+* Extracts JS files and API endpoints
+* Scans common ports
+* Detects CDN/hosting providers
+* Merges JS Analyzer results
+* Saves structured JSON reports
+
+### Project Structure
+
+```text
+Pentesta/
+├─ Fingerprinter/       # Source code
+├─ Reports/            # JSON reports
+├─ JSAnalyzerReports/  # JS Analyzer reports
+├─ go.mod
+├─ main.go            # Entry point
+├─ LICENSE
+├─ README.md
+```
+
+### Usage
+
+```bash
+go run .
+```
+
+Enter the target URL when prompted:
+
+```
+Enter target URL: https://example.com
+```
+
+Results are saved as **JSON reports** in `Reports/` and merged with JS Analyzer results from `JSAnalyzerReports/`.
+
+### JSON Report Example
+
+```json
+{
+  "target_url": "https://example.com",
+  "ips": ["93.184.216.34"],
+  "server": "nginx/1.20",
+  "content_type": "text/html",
+  "technologies": {"frontend": ["React"], "backend": ["Node.js", "Express.js"], "server": ["nginx"], "database": ["MySQL"]},
+  "favicon_md5": "d41d8cd98f00b204e9800998ecf8427e",
+  "tls_info": {"issuer": "Let's Encrypt", "expiry": "2025-12-15T00:00:00Z", "protocol": "TLS 1.3", "cipher_suite": "TLS_AES_256_GCM_SHA384"},
+  "secrets": ["api_key_example"],
+  "endpoints": ["/api/users.js"],
+  "open_ports": {"80":"open", "443":"open"},
+  "cdn_hosting": ["Cloudflare"],
+  "merged_from_js": {...},
+  "scan_timestamp": "2025-12-16T00:00:00Z"
+}
+```
 
 ---
 
-## 💡 Tips & Best Practices
-
-* Extend `Stage4Framework` regex patterns to detect more frameworks
-* Add more keywords in `Stage3Analyzer` for new secrets
-* Use Go channels to add more concurrent stages if needed
-* Always keep test files in the `Tests/` folder
-
----
-
-## 📝 License
+## License
 
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 👤 Author
+## Author
 
 **Peter Osama** – [GitHub](https://github.com/Petersudo01) | [peterosama.20003@gmail.com](mailto:peterosama.20003@gmail.com)
-
-
